@@ -1,6 +1,35 @@
 {
     "name": "InputSystem_Actions",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Player",
+            "id": "144e1872-a785-4edd-b84e-5cb6a0e2d561",
+            "actions": [
+                {
+                    "name": "Spawn",
+                    "type": "Button",
+                    "id": "f4e6015d-b75b-4a02-82bb-493f5771fd73",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "157719a9-ed17-4984-b7bf-786c53819f57",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": [
         {
             "name": "Keyboard&Mouse",
