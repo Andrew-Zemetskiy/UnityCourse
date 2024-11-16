@@ -9,9 +9,8 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button inputBtn;
     [SerializeField] private Button scrollViewBtn;
 
-    [Header("Menu Sections"), SerializeField]
-    private GameObject buttons;
-
+    [Header("Menu Sections")]
+    [SerializeField] private GameObject buttons;
     [SerializeField] private GameObject toggles;
     [SerializeField] private GameObject drops;
     [SerializeField] private GameObject input;

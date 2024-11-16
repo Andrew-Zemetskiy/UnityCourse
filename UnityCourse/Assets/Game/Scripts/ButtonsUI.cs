@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class ButtonsUI : MonoBehaviour, IMenuSectors
+public class ButtonsUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI labelText;
     [SerializeField] private List<Button> buttons;
@@ -32,14 +32,10 @@ public class ButtonsUI : MonoBehaviour, IMenuSectors
         buttons.ForEach(b => b.interactable = false);
     }
 
-    public void Show()
-    {
-        buttons.ForEach(b => b.interactable = true);
-        this.gameObject.SetActive(true);
-    }
-
-    public void Hide()
+    public void ShowMenu()
     {
         this.gameObject.SetActive(false);
+        buttons.ForEach(b => b.interactable = true);
+        UIManager.Instance.ShowMainMenu();
     }
 }
