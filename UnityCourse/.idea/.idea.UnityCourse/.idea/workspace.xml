@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="942b11a6-a91c-4c29-b331-21664ea41709" name="Changes" comment="" />
+    <list default="true" id="942b11a6-a91c-4c29-b331-21664ea41709" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/AsteroidsLava_Blue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/AsteroidsLava_Blue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/AsteroidsLava_Red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/AsteroidsLava_Red.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Bomb.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Bomb.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/CloudsRed.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/CloudsRed.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/ColorsAtlas.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/ColorsAtlas.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/FlyingInsect_Purple.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/FlyingInsect_Purple.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Grey.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Grey.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Mine Sample 1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Mine Sample 1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Mine Sample 2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Mine Sample 2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Missile.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Missile.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/TinniuqPlanet.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/TinniuqPlanet.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Black.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Black.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Cyan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Cyan.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Orange.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Orange.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Yellow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Yellow.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Blue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Blue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Green.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Green.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Grey.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Grey.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Purple.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Purple.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Red.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_White.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_White.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +38,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2ow0hPYf01TtAZBtx7tolPNb57r" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,7 +50,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "HW1",
+    "git-widget-placeholder": "HW3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731765450724</updated>
       <workItem from="1731765451977" duration="430000" />
+      <workItem from="1731866524726" duration="26000" />
     </task>
     <servers />
   </component>
