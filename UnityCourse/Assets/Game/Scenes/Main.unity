@@ -699,8 +699,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974767fa196c29543b1e65f9be0161c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectListSo: {fileID: 11400000, guid: f2b658e495ab0a246aa1a2503d408bf7, type: 2}
   spawnPoint: {fileID: 1718947398}
+  objectListSO: {fileID: 11400000, guid: f2b658e495ab0a246aa1a2503d408bf7, type: 2}
+  materialsSO: {fileID: 11400000, guid: 107e1681821c6ec4c9cb94ac2da03174, type: 2}
+  objectArray:
+  - {fileID: 1158561113003540375, guid: 58ae90480f804e1409813cd2fb3429db, type: 3}
+  - {fileID: 8310193472532158436, guid: 48e2bcd10c7abfe48a4841cec6032327, type: 3}
+  - {fileID: 4551001343671999574, guid: c1422c8ade3de174b98ce99989ac1ba8, type: 3}
+  - {fileID: 8220015038839579011, guid: 0e7f6e4718c172b4f94aad855ea4f5e4, type: 3}
 --- !u!4 &1447017863
 Transform:
   m_ObjectHideFlags: 0
@@ -768,7 +774,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -779,7 +785,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718947397}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -833,6 +839,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 463247384393852143, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 463247384393852143, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 463247384393852143, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 463247384393852143, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 481867234681767642, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -928,6 +950,14 @@ PrefabInstance:
     - target: {fileID: 2213281687053601471, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_Color.r
       value: 0.058490515
+      objectReference: {fileID: 0}
+    - target: {fileID: 2347376510801049079, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: ColorGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272590334672655767, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: GreenButton
       objectReference: {fileID: 0}
     - target: {fileID: 3353620246646741007, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_Pivot.x
@@ -1109,9 +1139,33 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.24089916
       objectReference: {fileID: 0}
+    - target: {fileID: 4785010913941269533, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: RedButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5068283369886056033, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337625722514785623, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337625722514785623, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337625722514785623, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337625722514785623, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737264864019614845, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: ColorRed
       objectReference: {fileID: 0}
     - target: {fileID: 5788865617776275850, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1165,6 +1219,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6016371807226660643, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: YellowButton
+      objectReference: {fileID: 0}
     - target: {fileID: 6103551017355207005, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1188,6 +1246,10 @@ PrefabInstance:
     - target: {fileID: 6103551017355207005, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811535718960441155, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: ColorYellow
       objectReference: {fileID: 0}
     - target: {fileID: 6964547106797571178, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1249,6 +1311,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8218296061761221833, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: BlueButton
+      objectReference: {fileID: 0}
     - target: {fileID: 8852260315613858539, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1276,6 +1342,10 @@ PrefabInstance:
     - target: {fileID: 8852260315613858539, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220096953259054249, guid: 7de2e335be071b340be197530d6eb8a9, type: 3}
+      propertyPath: m_Name
+      value: ColorBlue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
