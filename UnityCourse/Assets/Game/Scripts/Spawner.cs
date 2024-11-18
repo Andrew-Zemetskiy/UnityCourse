@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -5,24 +6,36 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private ObjectListSO objectListSO;
     [SerializeField] private MaterialsSO materialsSO;
-
     [SerializeField] private GameObject[] objectArray;
     
     private int _currentIndex = -1;
-
     private GameObject _currentObject;
+
+    public static Action<GameObject> OnCurrentObjectChanged;
 
     private void Start()
     {
         NavigationUI.OnNavigate += NavigationSpawn;
-        NavigationSpawn(true); //spawn first ship at index 0
-
+        NavigationUI.OnNavigate += TriggerCurrentObjectChanged;
         NavigationUI.OnColorChanged += ColorChange;
+
+        FirstObjectSpawn();
+    }
+
+    private void FirstObjectSpawn()
+    {
+        NavigationSpawn(true);
+        TriggerCurrentObjectChanged(true);
+    }
+
+    private void TriggerCurrentObjectChanged(bool isForward) //for new camera target object
+    {
+        OnCurrentObjectChanged?.Invoke(_currentObject);
     }
 
     private void NavigationSpawn(bool isForward) //true - forward, false - back
     {
-        GameObject[] objectsList = objectArray ; //objectListSO.objectToSpawn
+        GameObject[] objectsList = objectArray;
         if (_currentObject != null)
         {
             Destroy(_currentObject);
@@ -49,5 +62,7 @@ public class Spawner : MonoBehaviour
     private void OnDestroy()
     {
         NavigationUI.OnNavigate -= NavigationSpawn;
+        NavigationUI.OnNavigate -= TriggerCurrentObjectChanged;
+        NavigationUI.OnColorChanged -= ColorChange;
     }
 }

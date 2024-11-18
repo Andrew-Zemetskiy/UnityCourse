@@ -23,6 +23,6 @@ public class MaterialsSO : ScriptableObject
         Debug.LogWarning($"Material with color {colorName} not found!");
         return null;
     }
-
+    
     public Color GetColor(ColorLib colorName) => GetMaterial(colorName).color;
 }
