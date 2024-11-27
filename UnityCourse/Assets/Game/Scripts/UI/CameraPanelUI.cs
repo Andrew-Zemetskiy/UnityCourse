@@ -15,12 +15,14 @@ public class CameraPanelUI : MonoBehaviour
 
     [SerializeField] private float distance = 20f;
 
-    private Vector3 _upOffset = new Vector3(0, 1, 0);
-    private Vector3 _downOffset = new Vector3(0, -1, 0);
-    private Vector3 _faceOffset = new Vector3(0, 0, -1);
-    private Vector3 _leftOffset = new Vector3(1, 0, 0);
+    private readonly Vector3 _upOffset = new Vector3(0, 1, 0);
+    private readonly Vector3 _downOffset = new Vector3(0, -1, 0);
+    private readonly Vector3 _faceOffset = new Vector3(0, 0, -1);
+    private readonly Vector3 _leftOffset = new Vector3(1, 0, 0);
 
-    private GameObject targetGO;
+    private GameObject _targetGO;
+    private Vector3 _cameraOffset = Vector3.zero;
+    
     private void Start()
     {
         Init();
@@ -29,7 +31,7 @@ public class CameraPanelUI : MonoBehaviour
 
     private void TargetChanged(GameObject target)
     {
-        targetGO = target;
+        _targetGO = target;
     }
     
     private void Init()
@@ -42,39 +44,60 @@ public class CameraPanelUI : MonoBehaviour
 
     private void ChangeCameraView(CamView view)
     {
-        if (targetGO == null)
+        if (_targetGO == null)
             return;
-        
-        Vector3 targetPosition = targetGO.transform.position;
-        Vector3 newPosition = Vector3.zero;
         
         switch (view)
         {
             case CamView.Up:
-                newPosition = targetPosition + _upOffset * distance;
-                Debug.Log($"Change camera view to Up: {_upOffset}");
+                _cameraOffset = _upOffset * distance;
                 break;
             case CamView.Down:
-                newPosition = targetPosition + _downOffset * distance;
-                Debug.Log($"Change camera view to Down: {_downOffset}");
+                _cameraOffset = _downOffset * distance;
                 break;
             case CamView.Face:
-                newPosition = targetPosition + _faceOffset * distance;
-                Debug.Log($"Change camera view to Face: {_faceOffset}");
+                _cameraOffset = _faceOffset * distance;
                 break;
             case CamView.Left:
-                newPosition = targetPosition + _leftOffset * distance;
-                Debug.Log($"Change camera view to Left: {_leftOffset}");
+                _cameraOffset = _leftOffset * distance;
                 break;
         }
         
-        viewCamera.transform.position = newPosition;
-        viewCamera.transform.LookAt(targetPosition);
-        // viewCamera.transform.rotation = Quaternion.LookRotation(targetPosition - viewCamera.transform.position);
-        
-        Debug.Log($"Camera moved to {newPosition} and looking at {targetPosition}");
+        UpdateCameraPosition();
+        // Vector3 targetPosition = _targetGO.transform.position;
+        // viewCamera.transform.position = targetPosition + _cameraOffset;
+        // viewCamera.transform.LookAt(targetPosition);
     }
 
+    private void UpdateCameraPosition()
+    {
+        if (_targetGO == null)
+            return;
+
+        Vector3 targetPosition = _targetGO.transform.position;
+
+        // Вычисляем смещение с учетом вращения объекта (только для видов Face и Left)
+        if (_cameraOffset == _faceOffset * distance || _cameraOffset == _leftOffset * distance)
+        {
+            float targetRotationY = _targetGO.transform.eulerAngles.y;
+            Vector3 rotatedOffset = Quaternion.Euler(0, targetRotationY, 0) * _cameraOffset;
+            viewCamera.transform.position = targetPosition + rotatedOffset;
+        }
+        else
+        {
+            // Для вертикальных видов смещение остается неизменным
+            viewCamera.transform.position = targetPosition + _cameraOffset;
+        }
+
+        // Камера смотрит на объект
+        viewCamera.transform.LookAt(targetPosition);
+    }
+    
+    private void OnDestroy()
+    {
+        Spawner.OnCurrentObjectChanged -= TargetChanged;
+    }
+    
     private enum CamView
     {
         Up,
