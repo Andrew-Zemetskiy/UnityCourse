@@ -15,25 +15,38 @@ public class CameraPanelUI : MonoBehaviour
 
     [SerializeField] private float distance = 20f;
 
-    private readonly Vector3 _upOffset = new Vector3(0, 1, 0);
-    private readonly Vector3 _downOffset = new Vector3(0, -1, 0);
-    private readonly Vector3 _faceOffset = new Vector3(0, 0, -1);
-    private readonly Vector3 _leftOffset = new Vector3(1, 0, 0);
+    private readonly Vector3 _upOffset = new(0, 1, 0);
+    private readonly Vector3 _downOffset = new(0, -1, 0);
+    private readonly Vector3 _faceOffset = new(0, 0, 1);
+    private readonly Vector3 _leftOffset = new(-1, 0, 0);
 
     private GameObject _targetGO;
+
+    private CamView _currentCamView;
     private Vector3 _cameraOffset = Vector3.zero;
-    
+    private Vector3 _cameraRotation;
+
     private void Start()
     {
         Init();
         Spawner.OnCurrentObjectChanged += TargetChanged;
+        Rotator.OnRotated += UpdatePosition;
+    }
+
+    private void UpdatePosition()
+    {
+        if (_targetGO != null)
+        {
+            UpdateCameraPosition();
+        }
     }
 
     private void TargetChanged(GameObject target)
     {
         _targetGO = target;
+        upButton?.onClick.Invoke();
     }
-    
+
     private void Init()
     {
         upButton?.onClick.AddListener(() => ChangeCameraView(CamView.Up));
@@ -46,27 +59,29 @@ public class CameraPanelUI : MonoBehaviour
     {
         if (_targetGO == null)
             return;
-        
-        switch (view)
+
+        _currentCamView = view;
+        switch (_currentCamView)
         {
             case CamView.Up:
                 _cameraOffset = _upOffset * distance;
+                _cameraRotation = new Vector3(90, 180, 0);
                 break;
             case CamView.Down:
                 _cameraOffset = _downOffset * distance;
+                _cameraRotation = new Vector3(-90, 0, 0);
                 break;
             case CamView.Face:
                 _cameraOffset = _faceOffset * distance;
+                _cameraRotation = new Vector3(0, 180, 0);
                 break;
             case CamView.Left:
                 _cameraOffset = _leftOffset * distance;
+                _cameraRotation = new Vector3(0, 90, 0);
                 break;
         }
-        
+
         UpdateCameraPosition();
-        // Vector3 targetPosition = _targetGO.transform.position;
-        // viewCamera.transform.position = targetPosition + _cameraOffset;
-        // viewCamera.transform.LookAt(targetPosition);
     }
 
     private void UpdateCameraPosition()
@@ -75,29 +90,26 @@ public class CameraPanelUI : MonoBehaviour
             return;
 
         Vector3 targetPosition = _targetGO.transform.position;
+        float targetRotationY = _targetGO.transform.eulerAngles.y;
 
-        // Вычисляем смещение с учетом вращения объекта (только для видов Face и Left)
-        if (_cameraOffset == _faceOffset * distance || _cameraOffset == _leftOffset * distance)
+        if (_currentCamView == CamView.Face | _currentCamView == CamView.Left)
         {
-            float targetRotationY = _targetGO.transform.eulerAngles.y;
             Vector3 rotatedOffset = Quaternion.Euler(0, targetRotationY, 0) * _cameraOffset;
             viewCamera.transform.position = targetPosition + rotatedOffset;
+            viewCamera.transform.rotation = _targetGO.transform.rotation * Quaternion.Euler(_cameraRotation);
         }
         else
         {
-            // Для вертикальных видов смещение остается неизменным
             viewCamera.transform.position = targetPosition + _cameraOffset;
+            viewCamera.transform.rotation = _targetGO.transform.rotation * Quaternion.Euler(_cameraRotation);
         }
-
-        // Камера смотрит на объект
-        viewCamera.transform.LookAt(targetPosition);
     }
-    
+
     private void OnDestroy()
     {
         Spawner.OnCurrentObjectChanged -= TargetChanged;
     }
-    
+
     private enum CamView
     {
         Up,

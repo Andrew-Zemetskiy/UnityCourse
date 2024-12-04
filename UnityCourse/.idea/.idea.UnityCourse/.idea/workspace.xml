@@ -6,36 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="942b11a6-a91c-4c29-b331-21664ea41709" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityCourse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityCourse/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Blue.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Blue.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Green.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Green.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Red.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Red.mat.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow1.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow2.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow3.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Materials/Ships/StarSparrow4.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Yellow.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Materials/Yellow.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/Ships/StarSparrow4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/UI/CamDirection.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/UI/CamDirection.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Prefabs/UI/UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Prefabs/UI/UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/SO/MaterialsSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/SO/MaterialsSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Spawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/UI/NavigationUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/UI/NavigationUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Bomb.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/BonusContent/Bomb.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Yellow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/Extra/StarSparrow_Yellow.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Blue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StarSparrow/Materials/StarSparrow_Blue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/Rotator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/Rotator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Scripts/UI/CameraPanelUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Scripts/UI/CameraPanelUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Texture/ObjectViewTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Texture/ObjectViewTexture.renderTexture" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,18 +35,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;HW3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "HW3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Programs\Unity Hub\Editor\6000.0.23f1\Editor\Unity.exe" />
@@ -96,10 +75,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11612">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="11612" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -119,6 +98,8 @@
       <workItem from="1731866524726" duration="3861000" />
       <workItem from="1731875983325" duration="5530000" />
       <workItem from="1731960935028" duration="10381000" />
+      <workItem from="1733332577446" duration="1172000" />
+      <workItem from="1733333768808" duration="7537000" />
     </task>
     <servers />
   </component>

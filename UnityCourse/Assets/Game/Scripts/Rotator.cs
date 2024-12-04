@@ -10,25 +10,25 @@ public class Rotator : MonoBehaviour
     private PlayerInput _playerInput;
     private Vector2 _rotationInput;
 
+    public static Action OnRotated;
+
     private void Awake()
     {
         _playerInput = new PlayerInput();
         _playerInput.Player.Rotate.performed += OnRotate;
-    }
-
-    private void Start()
-    {
-        Spawner.OnCurrentObjectChanged += go => _targetObject = go; //set target object
-    }
-
-    private void OnRotate(InputAction.CallbackContext context)
-    {
-       if(_targetObject == null) return;
-       
-       _rotationInput = context.ReadValue<Vector2>();
-       _targetObject.transform.Rotate(0, -_rotationInput.x * rotationSpeed* Time.deltaTime, 0, Space.World);
+        Spawner.OnCurrentObjectChanged += go => _targetObject = go; //set target object   
     }
     
+    private void OnRotate(InputAction.CallbackContext context)
+    {
+        if (_targetObject == null) return;
+
+        _rotationInput = context.ReadValue<Vector2>();
+        _targetObject.transform.Rotate(0, -_rotationInput.x * rotationSpeed * Time.deltaTime, 0, Space.World);
+        
+        OnRotated?.Invoke();
+    }
+
     private void OnEnable()
     {
         _playerInput.Enable();
