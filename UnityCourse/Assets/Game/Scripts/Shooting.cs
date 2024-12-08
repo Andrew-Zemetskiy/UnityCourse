@@ -9,6 +9,10 @@ public class Shooting : MonoBehaviour
     private InputAction _shoot;
     private ProjectilesType _projectileType = ProjectilesType.Ordinary;
 
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject[] projectilePrefabs;
+    private int _currentProjectileIndex = 0;
+
     private void Awake()
     {
         _playerControls = new InputSystem_Actions();
@@ -16,34 +20,49 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        AmmoTypeChanger.OnTriggerEntered += OnAmmoTypeChanger;
+        AmmoTypeChanger.OnTriggerEntered += OnAmmoTypeChange;
     }
 
-    private void OnAmmoTypeChanger(ProjectilesType obj)
+    private void OnAmmoTypeChange(ProjectilesType obj)
     {
-        Debug.Log($"In shooting: {obj}");
+        switch (_projectileType = obj)
+        {
+            case ProjectilesType.Ordinary:
+                _currentProjectileIndex = 0;
+                break;
+            case ProjectilesType.Grenade:
+                _currentProjectileIndex = 1;
+                break;
+            case ProjectilesType.Tennis:
+                _currentProjectileIndex = 2;
+                break;
+        }
     }
-
+    
     private void OnEnable()
     {
         _shoot = _playerControls.Player.Shoot;
         _shoot.Enable();
-        _shoot.performed += OnShoot;
+        _shoot.performed += Shoot;
     }
 
     private void OnDisable()
     {
-        _shoot.performed -= OnShoot;
+        _shoot.performed -= Shoot;
         _shoot.Disable();
     }
 
     private void OnDestroy()
     {
-        AmmoTypeChanger.OnTriggerEntered -= OnAmmoTypeChanger;
+        AmmoTypeChanger.OnTriggerEntered -= OnAmmoTypeChange;
     }
 
-    private void OnShoot(InputAction.CallbackContext context)
+    private void Shoot(InputAction.CallbackContext context)
     {
-        Debug.Log($"Shooting {context}");
+        GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position, firePoint.rotation);
+        Projectile projectile = projectileInstance.GetComponent<Projectile>();
+
+        Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
+        projectile?.Launch(firePoint.forward);
     }
 }

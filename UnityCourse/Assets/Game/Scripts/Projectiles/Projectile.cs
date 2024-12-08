@@ -1,26 +1,35 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    public float speed = 10f;
-    public float lifetime = 5f;
-
-    protected Rigidbody Rb;
-
-    protected virtual void Start()
-    {
-        Rb = GetComponent<Rigidbody>();
-        // Destroy(gameObject, lifetime);
-    }
+    public float forceAmount = 10f;
+    public float lifetime = 10f;
+    public float lifetimeAfterHitObject = 5f;
+    
+    private Rigidbody _rb;
 
     public virtual void Launch(Vector3 direction)
     {
-        if (Rb != null)
+        _rb = GetComponent<Rigidbody>();
+        if (_rb == null)
         {
-            Rb.linearVelocity = direction * speed;
+            return;
         }
-    }
 
+        direction = direction.normalized;
+
+        _rb.AddForce(direction * forceAmount, ForceMode.Impulse);
+
+        StartCoroutine(DelayBeforeDestroy(lifetime));
+    }
+    
+    protected IEnumerator DelayBeforeDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
+    
     protected abstract void OnHit(Collision collision);
 
     private void OnCollisionEnter(Collision collision)
