@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class AmmoTypeChanger : MonoBehaviour
 {
-    public ProjectilesType projectileType;
+    public static event Action<ProjectilesType> OnTriggerEntered;
+    [SerializeField] private ProjectilesType projectileType;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Change for {other.name} projectile to {projectileType}");
+        OnTriggerEntered?.Invoke(projectileType);
     }
 }
