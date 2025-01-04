@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -10,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 150f;
     [SerializeField] private float _animationBlendSpeed = 0.2f;
     [SerializeField] private float _jumpSpeed = 7f;
+    [SerializeField] private float _delayForSpawning = 1.45f;
 
     private CharacterController _controller;
     private Camera _characterCamera;
@@ -21,7 +23,9 @@ public class PlayerMove : MonoBehaviour
     private float _speedY = 0.5f;
     private float _gravity = -9.81f;
     private bool _isJumping = false;
-    
+    private bool _isSpawned = false;
+    private bool _isDead = false;
+
     public CharacterController Controller
     {
         get { return _controller = _controller ?? GetComponent<CharacterController>(); }
@@ -56,18 +60,40 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        if (!_isSpawned)
+        {
+            StartCoroutine(SpawnWithDelay());
+            SimpleGravity();
+        }
+        else if(!_isDead)
+        {
+            Movement();
+        }
+        else
+        {
+            SimpleGravity();
+        }
+    }
+    
+    private IEnumerator SpawnWithDelay()
+    {
+        yield return new WaitForSeconds(_delayForSpawning);
+        _isSpawned = true;
     }
 
+    private void SimpleGravity()
+    {
+        Controller.Move(Vector3.up * (_gravity * Time.deltaTime));
+    }
+    
     private void Movement()
     {
         Jumping();
-        Debug.Log($"SpeedY {_speedY}");
-        
+
         Vector3 moveDir = new Vector3(_moveInput.x, 0.0f, _moveInput.y);
         Vector3 rotatedMove = Quaternion.Euler(0.0f, CharacterCamera.transform.rotation.eulerAngles.y, 0.0f) *
                               moveDir.normalized;
-        Vector3 verticalMovement = Vector3.up * (_speedY == 0.0f ? _gravity*Time.deltaTime : _speedY);
+        Vector3 verticalMovement = Vector3.up * (_speedY == 0.0f ? _gravity * Time.deltaTime : _speedY);
 
         float currentSpeed = _isSprint ? _sprintSpeed : _movementSpeed;
         Controller.Move((verticalMovement + rotatedMove * currentSpeed) * Time.deltaTime);
@@ -109,14 +135,15 @@ public class PlayerMove : MonoBehaviour
         if (!Controller.isGrounded)
         {
             _speedY += _gravity * Time.deltaTime;
-            Debug.Log("NOT Grounded");
+            // Debug.Log("NOT Grounded");
         }
         else if (_speedY < 0.0f)
         {
-            Debug.Log("Grounded");
+            // Debug.Log("Grounded");
             _speedY = 0.0f;
         }
-        CharacterAnimator.SetFloat("SpeedY", _speedY/_jumpSpeed);
+
+        CharacterAnimator.SetFloat("SpeedY", _speedY / _jumpSpeed);
         if (_isJumping && _speedY < 0.0f)
         {
             RaycastHit hit;
@@ -130,10 +157,13 @@ public class PlayerMove : MonoBehaviour
 
     private void Blow(InputAction.CallbackContext context)
     {
+        Debug.Log("Blow");
     }
 
     private void Death(InputAction.CallbackContext context)
     {
+        CharacterAnimator.SetTrigger("Death");
+        _isDead = true;
     }
 
     private void OnEnable()
