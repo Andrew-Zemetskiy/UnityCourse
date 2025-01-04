@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -12,7 +10,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _animationBlendSpeed = 0.2f;
     [SerializeField] private float _jumpSpeed = 7f;
     [SerializeField] private float _delayForSpawning = 1.45f;
-
+    [SerializeField] private float _attackAmount = 4f;
+    
     private CharacterController _controller;
     private Camera _characterCamera;
     private Animator _animator;
@@ -54,7 +53,7 @@ public class PlayerMove : MonoBehaviour
         _playerInputSystem.Player.Jump.performed += ctx => Jump();
         _playerInputSystem.Player.Run.performed += ctx => _isSprint = true;
         _playerInputSystem.Player.Run.canceled += ctx => _isSprint = false;
-        _playerInputSystem.Player.Blow.performed += Blow;
+        _playerInputSystem.Player.Blow.performed += Attack;
         _playerInputSystem.Player.Death.performed += Death;
     }
 
@@ -155,9 +154,12 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void Blow(InputAction.CallbackContext context)
+    private void Attack(InputAction.CallbackContext context)
     {
-        Debug.Log("Blow");
+        Random.Range(1.0f, 5.0f);
+        int attackType = (int)Random.Range(1, _attackAmount);
+        CharacterAnimator.SetInteger("Attack_Type", attackType);
+        CharacterAnimator.SetTrigger("Attack");
     }
 
     private void Death(InputAction.CallbackContext context)
