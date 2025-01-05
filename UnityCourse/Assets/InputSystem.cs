@@ -35,15 +35,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Flashlight"",
-                    ""type"": ""Button"",
-                    ""id"": ""03987774-0d5e-4e4e-a02a-5ef94241090c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -101,17 +92,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2b0e1403-92ae-45c4-99ca-966c3849a20d"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Flashlight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -182,7 +162,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -250,13 +229,11 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Flashlight;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
         public PlayerActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -269,9 +246,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Flashlight.started += instance.OnFlashlight;
-            @Flashlight.performed += instance.OnFlashlight;
-            @Flashlight.canceled += instance.OnFlashlight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -279,9 +253,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Flashlight.started -= instance.OnFlashlight;
-            @Flashlight.performed -= instance.OnFlashlight;
-            @Flashlight.canceled -= instance.OnFlashlight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -347,6 +318,5 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnFlashlight(InputAction.CallbackContext context);
     }
 }
