@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "69be3932-35a3-4ece-8c9e-01940769590d",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Flashlight",
                     "type": "Button",
                     "id": "03987774-0d5e-4e4e-a02a-5ef94241090c",
@@ -97,17 +88,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Flashlight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "769d4ea9-7a1e-4217-bdd8-ee20ec7e692e",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

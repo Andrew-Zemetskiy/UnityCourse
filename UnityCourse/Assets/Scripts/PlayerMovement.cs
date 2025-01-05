@@ -1,95 +1,75 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-   [SerializeField] private CharacterController controller;
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float lookSensitivity = 10f;
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private Transform _flashPoint;
+    [SerializeField] private Camera _camera;
 
-    private InputSystem _inputSystem;
-    private Vector2 _moveInput;
-    private Vector2 _lookInput;
+    public float movementSpeed = 8f;
+    public float rotationSpeed = 4f;
+    public float tiltSpeed = 2f;
 
-    public float gravity = -9.81f;
-    private Vector3 _velocity;
-    private bool _isGrounded;
+    private Vector2 _movementInput;
 
-    private float _verticalRotation = 0f;
-    
+    private float _tilt = 0f; // Camera
+    private float _turn = 0f; // Object
+
+    private InputSystem _playerControls;
+    private InputAction _move;
+
     private void Awake()
     {
-        _inputSystem = new InputSystem();
-
-        _inputSystem.Player.Move.performed += context => _moveInput = context.ReadValue<Vector2>();
-        _inputSystem.Player.Move.canceled += context => _moveInput = Vector2.zero;
-
-        _inputSystem.Player.Look.performed += context => _lookInput = context.ReadValue<Vector2>();
-        _inputSystem.Player.Look.canceled += context => _lookInput = Vector2.zero;
+        _playerControls = new InputSystem();
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        _camera = Camera.main;
+
+        _turn = transform.rotation.eulerAngles.y; // base angle on Y axis
+        _tilt = _camera!.transform.localRotation.x; // base tilt
+
+        Cursor.lockState = CursorLockMode.Locked; //cursor lock and invisible
         Cursor.visible = false;
-    }
-
-    private void OnEnable()
-    {
-        _inputSystem.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _inputSystem.Player.Disable();
     }
 
     private void Update()
     {
-        Movement();
-        Rotation();
-        ApplyGravity();
-        // HandleGravity();
+        UpdatePosAndRot();
     }
 
-    private void Movement()
+    private void UpdatePosAndRot()
     {
-        Vector3 moveDirection = new Vector3(_moveInput.x, 0, _moveInput.y) * moveSpeed;
-        controller.Move(transform.TransformDirection(moveDirection) * Time.deltaTime);
+        _movementInput = new Vector2(_move.ReadValue<Vector2>().x, _move.ReadValue<Vector2>().y);
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        _turn += mouseX * rotationSpeed; //rotation by mouse
+
+        _tilt -= mouseY * tiltSpeed;
+        _tilt = Mathf.Clamp(_tilt, -60f, 60f); //camera tilt restrictions
+
+        transform.rotation = Quaternion.Euler(0, _turn, 0); // player rotation left/right
+        _camera.transform.localRotation = Quaternion.Euler(_tilt, 0f, 0); //camera up/down
+        _flashPoint.localRotation = Quaternion.Euler(_tilt, 0, 0); // gun tilt with camera
+
+        Vector3 moveDirection = new Vector3(_movementInput.x, 0, _movementInput.y).normalized;
+        Vector3 movement = transform.TransformDirection(moveDirection) * (movementSpeed * Time.deltaTime);
+
+        _characterController.Move(movement);
     }
 
-    private void Rotation()
+    private void OnEnable()
     {
-        float horizontalRotation = _lookInput.x * lookSensitivity * Time.deltaTime;
-        controller.transform.Rotate(Vector3.up, horizontalRotation);
-
-        _verticalRotation -= _lookInput.y * lookSensitivity * Time.deltaTime;
-        _verticalRotation = Mathf.Clamp(_verticalRotation, -45f, 45f);
-        cameraTransform.localRotation = Quaternion.Euler(_verticalRotation, 0f, 0f);
+        _move = _playerControls.Player.Move;
+        _move.Enable();
     }
 
-    private void HandleGravity()
+    private void OnDisable()
     {
-        _isGrounded = controller.isGrounded;
-        Debug.Log($"Grounded: {_isGrounded}");
-
-        if (_isGrounded && _velocity.y < 0)
-        {
-            Debug.Log("OnGround");
-            _velocity.y = 0f;
-        }
-
-        _velocity.y += gravity * Time.deltaTime;
-        controller.Move(_velocity * Time.deltaTime);
-    }
-    
-    
-    private void ApplyGravity()
-    {
-        _velocity.y += gravity * Time.deltaTime;
-        controller.Move(_velocity * Time.deltaTime);
+        _move.Disable();
     }
 }
