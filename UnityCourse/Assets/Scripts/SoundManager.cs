@@ -11,9 +11,12 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private GameObject _stepSoundPrefab;
 
+    [Header("Another Audio")] [SerializeField]
+    private GameObject _backgroundMusic;
+
     private bool _isFootstepsPlay = false;
     private bool _isFootstepsInPlaying = false;
-    
+
     private Coroutine _stepCoroutine;
 
     private void Update()
@@ -29,6 +32,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         PlayerMovement.Instance.OnMove += OnPlayerMove;
+        PlayBackgroundMusic();
     }
 
     private void OnDestroy()
@@ -47,13 +51,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
     private void PlayerStepsSpawning()
     {
         if (!_isFootstepsPlay || _isFootstepsInPlaying)
         {
             return;
         }
+
         _isFootstepsInPlaying = true;
         _stepCoroutine = StartCoroutine(StepsDelaySpawn());
     }
@@ -70,7 +74,7 @@ public class SoundManager : MonoBehaviour
             yield return new WaitForSeconds(_intervalBetweenLeftAndRightSteps);
         }
     }
-    
+
     private void SpawnSound(GameObject soundPrefab, Vector3 position)
     {
         GameObject audioObject = Instantiate(soundPrefab, position, Quaternion.identity);
@@ -84,6 +88,15 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning("Audio clip could not be found");
             Destroy(audioObject, 1f);
+        }
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        GameObject bgMusic = Instantiate(_backgroundMusic);
+        if (bgMusic.TryGetComponent<AudioSource>(out AudioSource audioSource))
+        {
+            audioSource.Play();
         }
     }
 }

@@ -10,7 +10,6 @@ public class FloorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("EnterTrigger");
             FloorSpawnManager.Instance.OnFloorTriggerEnter(_floor, _spawnFloorPoint);
         }
     }

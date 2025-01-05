@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FloorSpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _floorPrefab;
+    [SerializeField] private List<GameObject> _floorPrefabs;
     [SerializeField] private Transform _baseSpawnPoint;
     [SerializeField] private float _spawnDistance = 8.04f;
 
@@ -31,7 +29,6 @@ public class FloorSpawnManager : MonoBehaviour
     public void OnFloorTriggerEnter(GameObject floor, Transform spawnPoint)
     {
         int currentFloorIndex = _floorsList.FindIndex(go => go == floor);
-        Debug.Log(currentFloorIndex);
         if (_lastFloor == floor && _lastIndex == currentFloorIndex)
         {
             return;
@@ -58,16 +55,18 @@ public class FloorSpawnManager : MonoBehaviour
         GameObject oldTopFloor = _floorsList[lastIndex];
         for (int i = lastIndex; i > 0; i--)
         {
-            _floorsList[i] = _floorsList[i-1];
+            _floorsList[i] = _floorsList[i - 1];
         }
+
         Destroy(oldTopFloor);
     }
 
     private void SpawnFloor(Vector3 spawnPoint, int multiplier, bool isToUpperFloor = true)
     {
         Vector3 verticalSpawnOffset = Vector3.up * (multiplier * _spawnDistance);
+        GameObject randomFloor = _floorPrefabs[Random.Range(0, _floorPrefabs.Count)];
         GameObject floorObject =
-            Instantiate(_floorPrefab, spawnPoint + verticalSpawnOffset, Quaternion.identity);
+            Instantiate(randomFloor, spawnPoint + verticalSpawnOffset, Quaternion.identity);
 
         if (isToUpperFloor)
         {
