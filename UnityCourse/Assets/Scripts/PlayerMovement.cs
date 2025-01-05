@@ -75,13 +75,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isMoving && _movementInput == Vector2.zero)
         {
-            Debug.Log("NotMoving!");
             OnMove?.Invoke(false);
             _isMoving = false;
         }
         else if (!_isMoving && _movementInput != Vector2.zero)
         {
-            Debug.Log("Moving!");
             OnMove?.Invoke(true);
             _isMoving = true;
         }
