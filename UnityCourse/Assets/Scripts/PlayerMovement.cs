@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,9 +19,15 @@ public class PlayerMovement : MonoBehaviour
 
     private InputSystem _playerControls;
     private InputAction _move;
+    private bool _isMoving = false;
 
+    public static PlayerMovement Instance { get; private set; }
+    public Action<bool> OnMove;
+    
+    
     private void Awake()
     {
+        Instance = this;
         _playerControls = new InputSystem();
     }
 
@@ -39,11 +45,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         UpdatePosAndRot();
+        CheckPlayerIsMoving();
     }
 
     private void UpdatePosAndRot()
     {
         _movementInput = new Vector2(_move.ReadValue<Vector2>().x, _move.ReadValue<Vector2>().y);
+        
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
@@ -62,6 +70,22 @@ public class PlayerMovement : MonoBehaviour
         _characterController.Move(movement);
     }
 
+    private void CheckPlayerIsMoving()
+    {
+        if (_isMoving && _movementInput == Vector2.zero)
+        {
+            Debug.Log("NotMoving!");
+            OnMove?.Invoke(false);
+            _isMoving = false;
+        }
+        else if(!_isMoving && _movementInput != Vector2.zero)
+        {
+            Debug.Log("Moving!");
+            OnMove?.Invoke(true);
+            _isMoving = true;
+        }
+    }
+    
     private void OnEnable()
     {
         _move = _playerControls.Player.Move;
