@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     public static PlayerMovement Instance { get; private set; }
     public Action<bool> OnMove;
-    
-    
+
+
     private void Awake()
     {
         Instance = this;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdatePosAndRot()
     {
         _movementInput = new Vector2(_move.ReadValue<Vector2>().x, _move.ReadValue<Vector2>().y);
-        
+
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
@@ -65,7 +65,8 @@ public class PlayerMovement : MonoBehaviour
         _flashPoint.localRotation = Quaternion.Euler(_tilt, 0, 0); // gun tilt with camera
 
         Vector3 moveDirection = new Vector3(_movementInput.x, 0, _movementInput.y).normalized;
-        Vector3 movement = transform.TransformDirection(moveDirection) * (movementSpeed * Time.deltaTime);
+        Vector3 verticalMovement = Vector3.up * (-9.81f * Time.deltaTime);
+        Vector3 movement = transform.TransformDirection(moveDirection) * (movementSpeed * Time.deltaTime) + verticalMovement;
 
         _characterController.Move(movement);
     }
@@ -78,14 +79,14 @@ public class PlayerMovement : MonoBehaviour
             OnMove?.Invoke(false);
             _isMoving = false;
         }
-        else if(!_isMoving && _movementInput != Vector2.zero)
+        else if (!_isMoving && _movementInput != Vector2.zero)
         {
             Debug.Log("Moving!");
             OnMove?.Invoke(true);
             _isMoving = true;
         }
     }
-    
+
     private void OnEnable()
     {
         _move = _playerControls.Player.Move;
