@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _inputSystem.Player.Move.performed += OnMove;
-        _inputSystem.Player.Move.canceled += ctx => _moveInput = 0f; // Останавливаем движение при отпускании клавиши
+        _inputSystem.Player.Move.canceled += ctx => _moveInput = 0f;
         _inputSystem.Player.Jump.performed += OnJump;
         _inputSystem.Enable();
     }
@@ -75,5 +75,7 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         _inputSystem.Disable();
+        _inputSystem.Player.Move.performed -= OnMove;
+        _inputSystem.Player.Jump.performed -= OnJump;
     }
 }
