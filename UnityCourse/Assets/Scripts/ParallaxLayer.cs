@@ -1,18 +1,14 @@
-using System;
 using UnityEngine;
+
+[RequireComponent(typeof(SpriteRenderer))]
 public class ParallaxLayer : MonoBehaviour
 {
     public Transform layerTransform;
     public float parallaxFactor;
     public float layerWidth;
 
-    public Renderer biggestSpriteInLayer;
-    public string layerName;
-
-    private void Start()
+    private void Awake()
     {
-        layerName = gameObject.name;
         layerWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-        Debug.Log($"Name {layerName}; Size {layerWidth}");
     }
 }

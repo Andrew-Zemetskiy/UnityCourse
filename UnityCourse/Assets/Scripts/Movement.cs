@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     private InputSystem _inputSystem;
-    private bool _isMoveRight = true;
 
+    public static Action OnPlayerChangeDir;
+    
     private void Awake()
     {
         _inputSystem = new InputSystem();
@@ -20,8 +21,8 @@ public class Movement : MonoBehaviour
 
     private void ChangeDirection(InputAction.CallbackContext obj)
     {
-        _isMoveRight = !_isMoveRight;
         FlipSides();
+        OnPlayerChangeDir?.Invoke();
     }
 
     private void FlipSides()
