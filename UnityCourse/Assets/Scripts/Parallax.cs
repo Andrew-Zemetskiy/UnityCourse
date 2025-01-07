@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Paralax : MonoBehaviour
+public class Parallax : MonoBehaviour
 {
     private float length, startPos;
     public GameObject cam;

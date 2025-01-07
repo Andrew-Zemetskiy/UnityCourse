@@ -51,8 +51,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9950470b-7f11-49ac-9054-d8f26577c2d4"",
-                    ""path"": ""<Touchscreen>/Press"",
+                    ""id"": ""f2d5c8cc-090c-48c3-8a29-a25d214944d5"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
