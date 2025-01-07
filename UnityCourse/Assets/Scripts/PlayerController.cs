@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     
     private bool _isGrounded = true;
     private bool _isJumping = false;
+
+    public static Action OnPlayerDeath;
     
     private void Awake()
     {
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Enemy.OnPlayerKilled += PlayerDeath;
+        
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += ctx => _moveInput = 0f;
         _inputSystem.Player.Jump.performed += OnJump;
@@ -43,6 +47,12 @@ public class PlayerController : MonoBehaviour
         Movement();
     }
 
+    private void PlayerDeath()
+    {
+        gameObject.SetActive(false);
+        OnPlayerDeath?.Invoke();
+    }
+    
     private void GroundCheck()
     {
         _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
