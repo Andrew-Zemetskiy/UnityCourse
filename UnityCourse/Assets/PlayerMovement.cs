@@ -1,30 +1,37 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Скорость движения
+    public float moveSpeed = 1f;
 
-    private Vector2 inputDirection;
+    private Rigidbody2D rb;
 
-    private void Update()
+    private void Awake()
     {
-        // Получение ввода
-        float inputX = Input.GetAxis("Horizontal"); // A/D или стрелки
-        float inputY = Input.GetAxis("Vertical"); // W/S или стрелки
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-        // Вычисляем изометрическое направление
-        Vector2 direction = new Vector2(inputX, inputY);
+    private void FixedUpdate()
+    {
+        Vector2 currentPos = rb.position;
 
-        // Угол поворота (45 градусов)
-        float angle = -45f;
+        // Получаем направление движения (только одна кнопка может быть нажата)
+        Vector2 inputDirection = Vector2.zero;
+        if (Input.GetKey(KeyCode.W)) // Вверх (вправо-вверх)
+            inputDirection = new Vector2(1, 0.5f);
+        else if (Input.GetKey(KeyCode.S)) // Вниз (влево-вниз)
+            inputDirection = new Vector2(-1, -0.5f);
+        else if (Input.GetKey(KeyCode.A)) // Влево (влево-вверх)
+            inputDirection = new Vector2(-1, 0.5f);
+        else if (Input.GetKey(KeyCode.D)) // Вправо (вправо-вниз)
+            inputDirection = new Vector2(1, -0.5f);
 
+        // Вычисляем движение
+        Vector2 movement = inputDirection * moveSpeed;
+        Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
 
-        float radians = angle * Mathf.Deg2Rad; // Угол в радианах
-        float newX = direction.x * Mathf.Cos(radians) - direction.y * Mathf.Sin(radians);
-        float newY = direction.x * Mathf.Sin(radians) + direction.y * Mathf.Cos(radians);
-        Vector3 newDirection = new Vector3(newX, newY, 0f);
-
-        
-        transform.position += newDirection * Time.deltaTime;
+        // Перемещаем персонажа
+        rb.MovePosition(newPos);
     }
 }
