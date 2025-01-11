@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      barrelsStacked_N_0: -6869319833300190321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      stoneWallBrokenLeft_W_0: 7913308075288423888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

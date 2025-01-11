@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      woodenSupportBeams_S_0: -3879043447528715872
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

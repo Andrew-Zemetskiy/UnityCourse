@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      stoneWallDoorBars_S_0: 2011520472381516092
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

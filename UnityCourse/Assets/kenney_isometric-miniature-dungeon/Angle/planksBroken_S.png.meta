@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      planksBroken_S_0: 7000952867295334037
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

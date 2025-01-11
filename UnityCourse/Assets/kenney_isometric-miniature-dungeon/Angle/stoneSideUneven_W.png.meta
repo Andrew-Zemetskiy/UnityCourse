@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      stoneSideUneven_W_0: 7135920235404573228
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
