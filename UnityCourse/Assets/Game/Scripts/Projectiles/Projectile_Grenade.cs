@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Projectile_Grenade : Projectile
 {
+    [SerializeField] private ParticleSystem _VFXprefab;
+    
     public float explosionRadius = 5f;
     public float explosionForce = 500f;
 
@@ -22,8 +24,14 @@ public class Projectile_Grenade : Projectile
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
         }
+        PlayVFX();
     }
 
+    private void PlayVFX()
+    {
+        Instantiate(_VFXprefab, transform.position, Quaternion.identity);
+    }
+    
     private IEnumerator DelayBeforeExplosion(float delay)
     {
         yield return new WaitForSeconds(delay);

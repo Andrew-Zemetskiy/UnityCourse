@@ -152,5 +152,6 @@ MonoBehaviour:
   forceAmount: 60
   lifetime: 10
   lifetimeAfterHitObject: 0
+  _VFXprefab: {fileID: 198656289721292014, guid: 41286579f8cb00e48a0fa14ad469704c, type: 3}
   explosionRadius: 6
   explosionForce: 500

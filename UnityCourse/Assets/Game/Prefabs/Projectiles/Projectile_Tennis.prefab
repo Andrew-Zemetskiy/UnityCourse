@@ -152,3 +152,4 @@ MonoBehaviour:
   forceAmount: 6
   lifetime: 10
   lifetimeAfterHitObject: 4
+  _trailRenderer: {fileID: 1727648715283718561, guid: d601cb6b9e7e1b5428c87862a4aaf713, type: 3}
