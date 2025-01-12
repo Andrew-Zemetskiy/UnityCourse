@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private CinemachineCamera _cinemaMachine;
 
+    public static Action OnPlayerInit;
+    
     private void Start()
     {
         SpawnLevel();
@@ -22,5 +25,6 @@ public class GameManager : MonoBehaviour
     {
         GameObject player = Instantiate(_playerPrefab);
         _cinemaMachine.Follow = player.transform;
+        OnPlayerInit?.Invoke();
     }
 }

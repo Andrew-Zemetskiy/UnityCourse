@@ -8,27 +8,42 @@ public class ZoneManager : MonoBehaviour
     public Action<float> OnPlayerEnterSlowZone;
     public Action OnPlayerExitSlowZone;
 
-
-    [SerializeField] private NavMeshAgent _agent;
     [SerializeField, Range(0, 100)] private float _slowZoneStrength;
+    private NavMeshAgent _agent;
 
+    private NavMeshAgent Agent
+    {
+        get { return _agent ??= FindFirstObjectByType<NavMeshAgent>(); }
+        set { _agent = value; }
+    }
 
     private bool _isInSlowZone = false;
 
     private void Awake()
     {
         Instance = this;
-        if (_agent == null)
-        {
-            _agent = FindFirstObjectByType<NavMeshAgent>();
-        }
     }
 
     private void FixedUpdate()
     {
         SlowZoneCheck();
     }
+    
+    private void OnEnable()
+    {
+        GameManager.OnPlayerInit += AgentInit;
+    }
+    private void OnDisable()
+    {
+        GameManager.OnPlayerInit -= AgentInit;
+    }
 
+    
+    private void AgentInit()
+    {
+        Agent = FindFirstObjectByType<NavMeshAgent>();
+    }
+    
     private void SlowZoneCheck()
     {
         bool currentlyInSlowZone = IsInSlowZone();
@@ -48,11 +63,11 @@ public class ZoneManager : MonoBehaviour
 
     private bool IsInSlowZone()
     {
-        if (!_agent) return false;
+        if (!Agent) return false;
 
         NavMeshHit hit;
 
-        if (NavMesh.SamplePosition(_agent.transform.position, out hit, 1.0f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(Agent.transform.position, out hit, 1.0f, NavMesh.AllAreas))
         {
             int areaMask = hit.mask;
             int slowZoneMask = 1 << NavMesh.GetAreaFromName("SlowZone");

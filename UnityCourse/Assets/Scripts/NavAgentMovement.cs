@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,12 @@ public class NavAgentMovement : MonoBehaviour
     {
         ZoneManager.Instance.OnPlayerEnterSlowZone += OnEnterInSlowZone;
         ZoneManager.Instance.OnPlayerExitSlowZone += ResetSpeed;
+    }
+
+    private void OnDisable()
+    {
+        ZoneManager.Instance.OnPlayerEnterSlowZone -= OnEnterInSlowZone;
+        ZoneManager.Instance.OnPlayerExitSlowZone -= ResetSpeed;
     }
 
     private void Update()
