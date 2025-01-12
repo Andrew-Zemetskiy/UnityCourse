@@ -5,27 +5,37 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class MeshGenerator : MonoBehaviour
 {
-    private Mesh mesh;
-
-    [SerializeField] private Vector3 CubeSize = new Vector3(2f,8f,4f);
-    [SerializeField] private Vector3 _targetPoint;
+    public Vector3 CubeSize = new Vector3(2f,1f,2f);
+    public Vector3 _targetPoint;
     
+    private Mesh _mesh;
     private Vector3 _offset,_firstPoint;
 
     private void Start()
     {
+        GenerateMesh();
+    }
+
+    private void GenerateMesh()
+    {
         _offset = new Vector3(-CubeSize.x / 2, CubeSize.y / 2, -CubeSize.z / 2);
         _firstPoint = _targetPoint + _offset;
 
-        mesh = new Mesh();
+        _mesh = new Mesh();
 
-        GetComponent<MeshFilter>().mesh = mesh;
-        mesh.vertices = GenerateVertices();
-        mesh.triangles = GenerateTriangles();
-        mesh.RecalculateNormals();
+        GetComponent<MeshFilter>().mesh = _mesh;
+        _mesh.vertices = GenerateVertices();
+        _mesh.triangles = GenerateTriangles();
+        _mesh.RecalculateNormals();
     }
 
-    Vector3[] GenerateVertices()
+    public void SetSize(Vector3 size)
+    {
+        CubeSize = size;
+        GenerateMesh();
+    }
+    
+    private Vector3[] GenerateVertices()
     {
         return new Vector3[]
         {
@@ -39,6 +49,7 @@ public class MeshGenerator : MonoBehaviour
             _firstPoint + Vector3.down * CubeSize.y + Vector3.right * CubeSize.x,
             _firstPoint + Vector3.down * CubeSize.y + Vector3.right * CubeSize.x + Vector3.forward * CubeSize.z,
 
+            #region Vertices
             // new Vector3(0.0f, 0.0f, 0.0f),
             // new Vector3(0.0f, 0.0f, 1.0f),
             // new Vector3(1.0f, 0.0f, 0.0f),
@@ -48,10 +59,11 @@ public class MeshGenerator : MonoBehaviour
             // new Vector3(0.0f, -1f, 1.0f),
             // new Vector3(1.0f, -1f, 0.0f),
             // new Vector3(1.0f, -1f, 1.0f)
+            #endregion
         };
     }
 
-    int[] GenerateTriangles()
+    private int[] GenerateTriangles()
     {
         int[] up = new int[] { 0, 1, 2, 1, 3, 2 };
         int[] front = new int[] { 4, 0, 6, 0, 2, 6 };
