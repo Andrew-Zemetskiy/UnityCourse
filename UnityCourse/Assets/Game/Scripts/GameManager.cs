@@ -17,11 +17,6 @@ public class GameManager : MonoBehaviour
     private Vector3 _moveDirection;
     private bool _isMoving;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     private void Start()
     {
         SpawnBlock(Vector3.zero, _firstBlockSize);
