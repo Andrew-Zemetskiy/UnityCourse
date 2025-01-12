@@ -60,7 +60,6 @@ public class ZoneManager : MonoBehaviour
         }
     }
 
-
     private bool IsInSlowZone()
     {
         if (!Agent) return false;
