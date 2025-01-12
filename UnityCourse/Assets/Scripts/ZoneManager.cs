@@ -37,13 +37,11 @@ public class ZoneManager : MonoBehaviour
         {
             _isInSlowZone = true;
             OnPlayerEnterSlowZone?.Invoke(_slowZoneStrength);
-            Debug.Log("Персонаж находится в зоне замедления!");
         }
         else if (!currentlyInSlowZone && _isInSlowZone)
         {
             _isInSlowZone = false;
             OnPlayerExitSlowZone?.Invoke();
-            Debug.Log("Персонаж вне зоны замедления!");
         }
     }
 
