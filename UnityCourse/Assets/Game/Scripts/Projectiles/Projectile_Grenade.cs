@@ -27,7 +27,7 @@ public class Projectile_Grenade : Projectile
         PlayVFX();
     }
 
-    private void PlayVFX()
+    protected override void PlayVFX()
     {
         Instantiate(_VFXprefab, transform.position, Quaternion.identity);
     }

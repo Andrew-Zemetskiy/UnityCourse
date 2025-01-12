@@ -6,5 +6,9 @@ public class Projectile_Ordinary : Projectile
     {
         StartCoroutine(DelayBeforeDestroy(lifetimeAfterHitObject));
     }
-    
+
+    protected override void PlayVFX()
+    {
+        
+    }
 }

@@ -175,6 +175,7 @@ MonoBehaviour:
   - {fileID: 4040631206705043394, guid: 848acf709c8887641bdbb24672de376b, type: 3}
   - {fileID: 4040631206705043394, guid: 318ca365682388b43aa23035ea556879, type: 3}
   - {fileID: 4040631206705043394, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
+  _shootVFXprefab: {fileID: 5543528006329853927, guid: 760394968ddae5d418fb7467e4f7cdde, type: 3}
 --- !u!1 &3159342608611279548
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 6594968039765778642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.828}
+  m_LocalPosition: {x: 0, y: 0, z: 0.989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

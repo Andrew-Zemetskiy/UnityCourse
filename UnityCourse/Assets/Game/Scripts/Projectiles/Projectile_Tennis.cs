@@ -15,7 +15,7 @@ public class Projectile_Tennis : Projectile
         StartCoroutine(DelayBeforeDestroy(lifetimeAfterHitObject));
     }
     
-    private void PlayVFX()
+    protected override void PlayVFX()
     {
         Instantiate(_trailRenderer, transform.position, Quaternion.identity, transform);
     }

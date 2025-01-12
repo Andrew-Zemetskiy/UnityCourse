@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +12,10 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] projectilePrefabs;
+    [SerializeField] private ParticleSystem _shootVFXprefab;
+
     private int _currentProjectileIndex = 0;
+    private ParticleSystem _currentVFX;
 
     private void Awake()
     {
@@ -38,7 +42,7 @@ public class Shooting : MonoBehaviour
                 break;
         }
     }
-    
+
     private void OnEnable()
     {
         _shoot = _playerControls.Player.Shoot;
@@ -59,10 +63,24 @@ public class Shooting : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext context)
     {
-        GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position, firePoint.rotation);
+        GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position,
+            firePoint.rotation);
         Projectile projectile = projectileInstance.GetComponent<Projectile>();
 
         Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
         projectile?.Launch(firePoint.forward);
+
+        PlayVFX();
+    }
+
+    private void PlayVFX()
+    {
+        if (!_currentVFX)
+        {
+            _currentVFX = Instantiate(_shootVFXprefab, firePoint.position + (Vector3.forward * 0.9f),
+                quaternion.identity, firePoint.transform);
+        }
+
+        _currentVFX.Play();
     }
 }
