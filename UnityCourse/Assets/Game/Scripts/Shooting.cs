@@ -77,8 +77,8 @@ public class Shooting : MonoBehaviour
     {
         if (!_currentVFX)
         {
-            _currentVFX = Instantiate(_shootVFXprefab, firePoint.position + (Vector3.forward * 0.9f),
-                quaternion.identity, firePoint.transform);
+            _currentVFX = Instantiate(_shootVFXprefab, firePoint.position,
+                Quaternion.Euler(-90f, 0f, 0f), firePoint.transform);
         }
 
         _currentVFX.Play();

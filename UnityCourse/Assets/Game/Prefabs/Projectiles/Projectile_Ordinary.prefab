@@ -152,3 +152,4 @@ MonoBehaviour:
   forceAmount: 20
   lifetime: 10
   lifetimeAfterHitObject: 3
+  _particleSystem: {fileID: 628844206878301960, guid: fa3a6152464f135468f4308234913715, type: 3}
