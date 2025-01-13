@@ -164,10 +164,19 @@ public class PlayerMove : MonoBehaviour
 
     private void Death(InputAction.CallbackContext context)
     {
-        CharacterAnimator.SetTrigger("Death");
-        _isDead = true;
+        if (!_isDead)
+        {
+            CharacterAnimator.SetTrigger("Death");
+            _isDead = true;
+        }
     }
 
+    public void CutSceneIsOver()
+    {
+        CharacterAnimator.SetTrigger("CutsceneIsOver");
+        Debug.Log("CutsceneIsOver");
+    }
+    
     private void OnEnable()
     {
         _playerInputSystem.Enable();
