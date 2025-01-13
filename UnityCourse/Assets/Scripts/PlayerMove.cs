@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _jumpSpeed = 7f;
     [SerializeField] private float _delayForSpawning = 1.45f;
     [SerializeField] private float _attackAmount = 4f;
-    
+
     private CharacterController _controller;
     private Camera _characterCamera;
     private Animator _animator;
@@ -24,6 +26,9 @@ public class PlayerMove : MonoBehaviour
     private bool _isJumping = false;
     private bool _isSpawned = false;
     private bool _isDead = false;
+    private bool _isCutsceneOver = false;
+
+    public static Action OnPlayerDeath;
 
     public CharacterController Controller
     {
@@ -46,45 +51,43 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _playerInputSystem = new PlayerInputSystem();
-
-        _playerInputSystem.Player.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-        _playerInputSystem.Player.Move.canceled += ctx => _moveInput = Vector2.zero;
-
-        _playerInputSystem.Player.Jump.performed += ctx => Jump();
-        _playerInputSystem.Player.Run.performed += ctx => _isSprint = true;
-        _playerInputSystem.Player.Run.canceled += ctx => _isSprint = false;
-        _playerInputSystem.Player.Blow.performed += Attack;
-        _playerInputSystem.Player.Death.performed += Death;
     }
 
     void Update()
     {
-        if (!_isSpawned)
+        if (_isCutsceneOver)
         {
-            StartCoroutine(SpawnWithDelay());
-            SimpleGravity();
-        }
-        else if(!_isDead)
-        {
-            Movement();
-        }
-        else
-        {
-            SimpleGravity();
+            if (!_isSpawned)
+            {
+                StartCoroutine(SpawnWithDelay());
+                SimpleGravity();
+            }
+            else if (!_isDead)
+            {
+                Movement();
+            }
+            else
+            {
+                SimpleGravity();
+            }
         }
     }
-    
+
     private IEnumerator SpawnWithDelay()
     {
         yield return new WaitForSeconds(_delayForSpawning);
-        _isSpawned = true;
+        if (!_isSpawned)
+        {
+            _isSpawned = true;
+            CustomOnEnable();
+        }
     }
 
     private void SimpleGravity()
     {
         Controller.Move(Vector3.up * (_gravity * Time.deltaTime));
     }
-    
+
     private void Movement()
     {
         Jumping();
@@ -166,24 +169,42 @@ public class PlayerMove : MonoBehaviour
     {
         if (!_isDead)
         {
-            CharacterAnimator.SetTrigger("Death");
             _isDead = true;
+            OnPlayerDeath?.Invoke();
+            _playerInputSystem.Disable();
         }
+    }
+
+    public void OnDeathCutscene()
+    {
+        Debug.Log("Player Death react (PlayerMove)");
+        CharacterAnimator.SetTrigger("Death");
     }
 
     public void CutSceneIsOver()
     {
+        _isCutsceneOver = true;
         CharacterAnimator.SetTrigger("CutsceneIsOver");
-        Debug.Log("CutsceneIsOver");
     }
-    
-    private void OnEnable()
+
+    private void CustomOnEnable()
     {
+        _playerInputSystem.Player.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
+        _playerInputSystem.Player.Move.canceled += ctx => _moveInput = Vector2.zero;
+
+        _playerInputSystem.Player.Jump.performed += ctx => Jump();
+        _playerInputSystem.Player.Run.performed += ctx => _isSprint = true;
+        _playerInputSystem.Player.Run.canceled += ctx => _isSprint = false;
+        _playerInputSystem.Player.Blow.performed += Attack;
+        _playerInputSystem.Player.Death.performed += Death;
         _playerInputSystem.Enable();
     }
+
 
     private void OnDisable()
     {
         _playerInputSystem.Disable();
+        _playerInputSystem.Player.Blow.performed -= Attack;
+        _playerInputSystem.Player.Death.performed -= Death;
     }
 }
