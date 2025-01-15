@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "48ac1f09-e01a-4a60-aaba-334fc29a8499",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Run",
                     "type": "Button",
                     "id": "5c15e197-fd1d-491c-9ab0-1c550f57f1ba",
@@ -42,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Blow",
+                    "name": "Respawn",
                     "type": "Button",
-                    "id": "a70a05f6-932c-4205-a3d8-3a3c01a8e3e5",
+                    "id": "8934ed2d-f706-435a-bc55-d950bffe0aab",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -109,17 +100,6 @@
                 },
                 {
                     "name": "",
-                    "id": "7ebdc200-d91b-4340-893b-689e970b3fd9",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "66711514-9e0e-44d4-bd15-ecfa0b93cb21",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -142,12 +122,34 @@
                 },
                 {
                     "name": "",
-                    "id": "56438e20-c86b-45f0-892c-986f45e38431",
-                    "path": "<Mouse>/leftButton",
+                    "id": "2fca3afb-29f0-4a6d-b763-70a24346591b",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Blow",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ce70507-509e-4dda-af2f-e5be72204d10",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d36bafb-05dd-49dc-b230-3cf69d004432",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Respawn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

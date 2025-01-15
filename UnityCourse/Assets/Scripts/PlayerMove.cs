@@ -10,9 +10,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _sprintSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 150f;
     [SerializeField] private float _animationBlendSpeed = 0.2f;
-    [SerializeField] private float _jumpSpeed = 7f;
-    [SerializeField] private float _delayForSpawning = 1.45f;
-    [SerializeField] private float _attackAmount = 4f;
 
     private CharacterController _controller;
     private Camera _characterCamera;
@@ -21,15 +18,14 @@ public class PlayerMove : MonoBehaviour
     private float _targetAnimationSpeed = 0.0f;
     private bool _isSprint = false;
 
-    private float _speedY = 0.5f;
     private float _gravity = -9.81f;
-    private bool _isJumping = false;
-    private bool _isSpawned = false;
     private bool _isDead = false;
-    private bool _isCutsceneOver = false;
+    private bool _isStandingUp = false;
 
     public static Action OnPlayerDeath;
-
+    public static Action OnPlayerStandUp;
+    public static PlayerMove Instance;
+    
     public CharacterController Controller
     {
         get { return _controller = _controller ?? GetComponent<CharacterController>(); }
@@ -37,7 +33,7 @@ public class PlayerMove : MonoBehaviour
 
     public Camera CharacterCamera
     {
-        get { return _characterCamera = _characterCamera ?? FindObjectOfType<Camera>(); }
+        get { return _characterCamera = _characterCamera ?? FindFirstObjectByType<Camera>(); }
     }
 
     public Animator CharacterAnimator
@@ -51,35 +47,14 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _playerInputSystem = new PlayerInputSystem();
+        Instance = this;
     }
 
     void Update()
     {
-        if (_isCutsceneOver)
+        if (!_isDead)
         {
-            if (!_isSpawned)
-            {
-                StartCoroutine(SpawnWithDelay());
-                SimpleGravity();
-            }
-            else if (!_isDead)
-            {
-                Movement();
-            }
-            else
-            {
-                SimpleGravity();
-            }
-        }
-    }
-
-    private IEnumerator SpawnWithDelay()
-    {
-        yield return new WaitForSeconds(_delayForSpawning);
-        if (!_isSpawned)
-        {
-            _isSpawned = true;
-            CustomOnEnable();
+            Movement();
         }
     }
 
@@ -90,12 +65,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Movement()
     {
-        Jumping();
-
         Vector3 moveDir = new Vector3(_moveInput.x, 0.0f, _moveInput.y);
         Vector3 rotatedMove = Quaternion.Euler(0.0f, CharacterCamera.transform.rotation.eulerAngles.y, 0.0f) *
                               moveDir.normalized;
-        Vector3 verticalMovement = Vector3.up * (_speedY == 0.0f ? _gravity * Time.deltaTime : _speedY);
+        Vector3 verticalMovement = Vector3.up * (_gravity * Time.deltaTime);
 
         float currentSpeed = _isSprint ? _sprintSpeed : _movementSpeed;
         Controller.Move((verticalMovement + rotatedMove * currentSpeed) * Time.deltaTime);
@@ -122,89 +95,57 @@ public class PlayerMove : MonoBehaviour
             Mathf.Lerp(CharacterAnimator.GetFloat("Speed"), _targetAnimationSpeed, _animationBlendSpeed));
     }
 
-    private void Jump()
+    public void InitPlayerDeath()
     {
-        if (!_isJumping)
-        {
-            _isJumping = true;
-            CharacterAnimator.SetTrigger("Jump");
-            _speedY += _jumpSpeed;
-        }
+        Death(new InputAction.CallbackContext());
     }
-
-    private void Jumping()
-    {
-        if (!Controller.isGrounded)
-        {
-            _speedY += _gravity * Time.deltaTime;
-            // Debug.Log("NOT Grounded");
-        }
-        else if (_speedY < 0.0f)
-        {
-            // Debug.Log("Grounded");
-            _speedY = 0.0f;
-        }
-
-        CharacterAnimator.SetFloat("SpeedY", _speedY / _jumpSpeed);
-        if (_isJumping && _speedY < 0.0f)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, LayerMask.GetMask("Default")))
-            {
-                _isJumping = false;
-                CharacterAnimator.SetTrigger("Land");
-            }
-        }
-    }
-
-    private void Attack(InputAction.CallbackContext context)
-    {
-        Random.Range(1.0f, 5.0f);
-        int attackType = (int)Random.Range(1, _attackAmount);
-        CharacterAnimator.SetInteger("Attack_Type", attackType);
-        CharacterAnimator.SetTrigger("Attack");
-    }
-
+    
     private void Death(InputAction.CallbackContext context)
     {
         if (!_isDead)
         {
             _isDead = true;
+            _controller.enabled = false;
             OnPlayerDeath?.Invoke();
-            _playerInputSystem.Disable();
         }
     }
 
-    public void OnDeathCutscene()
+    private void StandUp(InputAction.CallbackContext context)
     {
-        Debug.Log("Player Death react (PlayerMove)");
-        CharacterAnimator.SetTrigger("Death");
+        if (_isDead && !_isStandingUp)
+        {
+            OnPlayerStandUp?.Invoke();
+            _controller.enabled = true;
+            CharacterAnimator.SetTrigger("StandUp");
+            CharacterAnimator.SetFloat("Speed", 0f);
+            _isStandingUp = true;
+            StartCoroutine(GetUpDelay(4f));
+        }
+    }
+    
+    private IEnumerator GetUpDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _isDead = false;
+        _isStandingUp = false;
     }
 
-    public void CutSceneIsOver()
-    {
-        _isCutsceneOver = true;
-        CharacterAnimator.SetTrigger("CutsceneIsOver");
-    }
-
-    private void CustomOnEnable()
+    private void OnEnable()
     {
         _playerInputSystem.Player.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
         _playerInputSystem.Player.Move.canceled += ctx => _moveInput = Vector2.zero;
 
-        _playerInputSystem.Player.Jump.performed += ctx => Jump();
         _playerInputSystem.Player.Run.performed += ctx => _isSprint = true;
         _playerInputSystem.Player.Run.canceled += ctx => _isSprint = false;
-        _playerInputSystem.Player.Blow.performed += Attack;
         _playerInputSystem.Player.Death.performed += Death;
+        _playerInputSystem.Player.Respawn.performed += StandUp;
         _playerInputSystem.Enable();
     }
-
-
+    
     private void OnDisable()
     {
         _playerInputSystem.Disable();
-        _playerInputSystem.Player.Blow.performed -= Attack;
         _playerInputSystem.Player.Death.performed -= Death;
+        _playerInputSystem.Player.Respawn.performed -= StandUp;
     }
 }
