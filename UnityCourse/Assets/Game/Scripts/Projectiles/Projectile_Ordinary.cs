@@ -4,12 +4,16 @@ using UnityEngine;
 public class Projectile_Ordinary : Projectile
 {
     [SerializeField] private ParticleSystem _particleSystem;
-    
+    private bool _oneTimeSound = false;
+
     protected override void OnHit(Collision collision)
     {
         StartCoroutine(DelayBeforeDestroy(lifetimeAfterHitObject));
         PlayVFX();
-        PlaySound();
+        if (!_oneTimeSound)
+        {
+            PlaySound();
+        }
     }
 
     protected override void PlayVFX()
@@ -20,5 +24,6 @@ public class Projectile_Ordinary : Projectile
     protected override void PlaySound()
     {
         AudioManager.Instance.PlaySound(AudioManager.Instance.hitSound);
+        _oneTimeSound = true;
     }
 }
