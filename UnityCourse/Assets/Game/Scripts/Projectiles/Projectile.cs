@@ -33,6 +33,7 @@ public abstract class Projectile : MonoBehaviour
     protected abstract void OnHit(Collision collision);
 
     protected abstract void PlayVFX();
+    protected abstract void PlaySound();
 
     private void OnCollisionEnter(Collision collision)
     {

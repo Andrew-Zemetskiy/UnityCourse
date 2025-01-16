@@ -71,6 +71,7 @@ public class Shooting : MonoBehaviour
         projectile?.Launch(firePoint.forward);
 
         PlayVFX();
+        AudioManager.Instance.PlaySound(AudioManager.Instance.shootSound);
     }
 
     private void PlayVFX()

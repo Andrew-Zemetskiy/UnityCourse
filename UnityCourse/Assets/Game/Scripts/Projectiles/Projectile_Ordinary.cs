@@ -9,10 +9,16 @@ public class Projectile_Ordinary : Projectile
     {
         StartCoroutine(DelayBeforeDestroy(lifetimeAfterHitObject));
         PlayVFX();
+        PlaySound();
     }
 
     protected override void PlayVFX()
     {
         Instantiate(_particleSystem, transform.position, quaternion.identity);
+    }
+
+    protected override void PlaySound()
+    {
+        AudioManager.Instance.PlaySound(AudioManager.Instance.hitSound);
     }
 }

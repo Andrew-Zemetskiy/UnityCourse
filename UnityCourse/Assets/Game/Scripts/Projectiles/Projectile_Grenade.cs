@@ -25,13 +25,19 @@ public class Projectile_Grenade : Projectile
             }
         }
         PlayVFX();
+        PlaySound();
     }
 
     protected override void PlayVFX()
     {
         Instantiate(_VFXprefab, transform.position, Quaternion.identity);
     }
-    
+
+    protected override void PlaySound()
+    {
+        AudioManager.Instance.PlaySound(AudioManager.Instance.explosionSound);
+    }
+
     private IEnumerator DelayBeforeExplosion(float delay)
     {
         yield return new WaitForSeconds(delay);
