@@ -42,6 +42,6 @@ public class Projectile_Grenade : Projectile
     {
         yield return new WaitForSeconds(delay);
         Explosion();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

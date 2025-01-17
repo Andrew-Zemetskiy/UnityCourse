@@ -27,7 +27,7 @@ public abstract class Projectile : MonoBehaviour
     protected IEnumerator DelayBeforeDestroy(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     
     protected abstract void OnHit(Collision collision);

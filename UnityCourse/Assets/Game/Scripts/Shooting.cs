@@ -63,13 +63,18 @@ public class Shooting : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext context)
     {
-        GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position,
-            firePoint.rotation);
-        Projectile projectile = projectileInstance.GetComponent<Projectile>();
+        var go = BulletManager.Instance.GetPooledObject();
+        go.transform.position = firePoint.position;
+        go.transform.rotation = firePoint.rotation;
+        // GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position,
+        //     firePoint.rotation);
+        // Projectile projectile = projectileInstance.GetComponent<Projectile>();
+        Projectile projectile = go.GetComponent<Projectile>();
 
         Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
+        go.SetActive(true);
         projectile?.Launch(firePoint.forward);
-
+        
         PlayVFX();
         AudioManager.Instance.PlaySound(AudioManager.Instance.shootSound);
     }
