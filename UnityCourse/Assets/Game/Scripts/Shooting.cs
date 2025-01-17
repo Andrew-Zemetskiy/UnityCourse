@@ -8,7 +8,6 @@ public class Shooting : MonoBehaviour
 {
     private InputSystem_Actions _playerControls;
     private InputAction _shoot;
-    private ProjectilesType _projectileType = ProjectilesType.Ordinary;
 
     [SerializeField] private Transform firePoint;
     [SerializeField] private ParticleSystem _shootVFXprefab;
@@ -30,7 +29,7 @@ public class Shooting : MonoBehaviour
 
     public void SetCurrentProjectile(Projectile go)
     {
-        _projectileTag = go.tag;
+        _projectileTag = go.projectileTag;
     }
     
     private void OnEnable()
@@ -49,6 +48,11 @@ public class Shooting : MonoBehaviour
     private void Shoot(InputAction.CallbackContext context)
     {
         var go = BulletManager.Instance.GetPooledObject(_projectileTag);
+        if (go == null)
+        {
+            Debug.LogWarning("You don't have this projectile type!");
+            return;
+        }
         go.transform.position = firePoint.position;
         go.transform.rotation = firePoint.rotation;
         Projectile projectile = go.GetComponent<Projectile>();

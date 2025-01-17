@@ -31,7 +31,7 @@ public class BulletManager : Singleton<BulletManager>
         {
             if (pool.prefab.TryGetComponent<Projectile>(out var projectile))
             {
-                pool.tag = projectile.tag;
+                pool.tag = projectile.projectileTag;
                 poolTag = pool.tag;
             }
 

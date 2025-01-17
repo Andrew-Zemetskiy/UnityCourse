@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3b3db86ad2d164aa094419e1561f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tag: tennis
+  projectileTag: tennis
   forceAmount: 6
   lifetime: 6
   lifetimeAfterHitObject: 4

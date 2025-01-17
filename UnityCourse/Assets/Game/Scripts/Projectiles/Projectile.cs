@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    public string tag;
+    public string projectileTag;
     public float forceAmount = 10f;
     public float lifetime = 10f;
     public float lifetimeAfterHitObject = 5f;

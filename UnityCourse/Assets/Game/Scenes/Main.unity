@@ -371,9 +371,9 @@ MonoBehaviour:
   - tag: ordinary
     prefab: {fileID: 4040631206705043394, guid: 848acf709c8887641bdbb24672de376b, type: 3}
     baseSize: 2
-  - tag: tennis
+  - tag: ordinary
     prefab: {fileID: 4040631206705043394, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
-    baseSize: 5
+    baseSize: 3
 --- !u!4 &333237220
 Transform:
   m_ObjectHideFlags: 0
