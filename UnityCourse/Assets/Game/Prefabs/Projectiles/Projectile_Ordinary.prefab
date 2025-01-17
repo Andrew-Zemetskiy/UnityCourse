@@ -151,6 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: ordinary
   forceAmount: 20
-  lifetime: 10
+  lifetime: 5
   lifetimeAfterHitObject: 3
   _particleSystem: {fileID: 628844206878301960, guid: fa3a6152464f135468f4308234913715, type: 3}

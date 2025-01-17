@@ -18,32 +18,34 @@ public class BulletManager : Singleton<BulletManager>
     }
 
     [SerializeField] private List<Pool> _pools;
-    public Dictionary<string, List<GameObject>> _poolDictionary;
-
+    private Dictionary<string, List<GameObject>> _poolDictionary;
+    private Dictionary<string, GameObject> _parentDictionary;
+    
     private void Awake()
     {
         _poolDictionary = new Dictionary<string, List<GameObject>>();
-
+        _parentDictionary = new Dictionary<string, GameObject>();
+        string poolTag = null;
+        
         foreach (var pool in _pools)
         {
             if (pool.prefab.TryGetComponent<Projectile>(out var projectile))
             {
                 pool.tag = projectile.tag;
+                poolTag = pool.tag;
             }
-            Debug.Log("Pool tag" + pool.tag);
+
+            GameObject parent = new GameObject($"ParentOf_{poolTag}");
+            parent.transform.SetParent(transform);
+            _parentDictionary.Add(poolTag, parent);
             
             List<GameObject> objectPool = new List<GameObject>();
             for (int i = 0; i < pool.baseSize; i++)
             {
-                GameObject obj = CreateNewObject(pool.prefab);
+                GameObject obj = CreateNewObject(poolTag, pool.prefab);
                 objectPool.Add(obj);
             }
-            _poolDictionary.Add(pool.tag, objectPool);
-        }
-
-        foreach (var v in _poolDictionary)
-        {
-            Debug.Log(v.Key);
+            _poolDictionary.Add(poolTag, objectPool);
         }
     }
 
@@ -51,11 +53,9 @@ public class BulletManager : Singleton<BulletManager>
     {
         if (!_poolDictionary.ContainsKey(projectileTag))
         {
-            Debug.LogError("Not found tag");
             return null;
         }
-        Debug.Log("Contains!");
-
+        
         foreach (var obj in _poolDictionary[projectileTag])
         {
             if (!obj.activeInHierarchy)
@@ -64,14 +64,15 @@ public class BulletManager : Singleton<BulletManager>
             }
         }
 
-        Debug.Log("Not enough space");
-        return CreateNewObject(_poolDictionary[projectileTag][0]);
+        GameObject go = CreateNewObject(projectileTag, _poolDictionary[projectileTag][0]);
+        _poolDictionary[projectileTag].Add(go);
+        return go;
     }
 
-    private GameObject CreateNewObject(GameObject prefab)
+    private GameObject CreateNewObject(string tag, GameObject prefab)
     {
         GameObject obj = Instantiate(prefab, transform.position, Quaternion.identity);
-        obj.transform.SetParent(transform);
+        obj.transform.SetParent(_parentDictionary[tag].transform);
         obj.SetActive(false);
         return obj;
     }

@@ -367,13 +367,13 @@ MonoBehaviour:
   _pools:
   - tag: grenade
     prefab: {fileID: 4040631206705043394, guid: 318ca365682388b43aa23035ea556879, type: 3}
-    size: 2
+    baseSize: 3
   - tag: ordinary
     prefab: {fileID: 4040631206705043394, guid: 848acf709c8887641bdbb24672de376b, type: 3}
-    size: 3
+    baseSize: 2
   - tag: tennis
     prefab: {fileID: 4040631206705043394, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
-    size: 4
+    baseSize: 5
 --- !u!4 &333237220
 Transform:
   m_ObjectHideFlags: 0
@@ -441,6 +441,10 @@ PrefabInstance:
       propertyPath: projectileType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1037053049240312550, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: -3068450275142304286, guid: 318ca365682388b43aa23035ea556879, type: 3}
     - target: {fileID: 8087154441177328331, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1561,6 +1565,10 @@ PrefabInstance:
       propertyPath: projectileType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1037053049240312550, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 1717840510894714155, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
     - target: {fileID: 8087154441177328331, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1995,6 +2003,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1037053049240312550, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 4811281541495435380, guid: 848acf709c8887641bdbb24672de376b, type: 3}
     - target: {fileID: 8901116552897725645, guid: 5512c9d501fa4f146b862295a8f83f4b, type: 3}
       propertyPath: m_Name
       value: TriggerZone1

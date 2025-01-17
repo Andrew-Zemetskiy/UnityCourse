@@ -51,9 +51,6 @@ public class Shooting : MonoBehaviour
         var go = BulletManager.Instance.GetPooledObject(_projectileTag);
         go.transform.position = firePoint.position;
         go.transform.rotation = firePoint.rotation;
-        // GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position,
-        //     firePoint.rotation);
-        // Projectile projectile = projectileInstance.GetComponent<Projectile>();
         Projectile projectile = go.GetComponent<Projectile>();
 
         Debug.DrawRay(firePoint.position, firePoint.forward * 5, Color.red, 2f);
