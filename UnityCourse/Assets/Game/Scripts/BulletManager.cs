@@ -1,44 +1,78 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class BulletManager : Singleton<BulletManager>
 {
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private int _amountToPool = 4;
+    [System.Serializable]
+    public class Pool
+    {
+        [HideInInspector]
+        public string tag;
+        public GameObject prefab;
+        [Range(1,15)]
+        public int baseSize = 1;
+    }
 
-    [SerializeField] private List<GameObject> _pooledObjects;
+    [SerializeField] private List<Pool> _pools;
+    public Dictionary<string, List<GameObject>> _poolDictionary;
 
     private void Awake()
     {
-        _pooledObjects = new List<GameObject>();
-        for (int i = 0; i < _amountToPool; i++)
+        _poolDictionary = new Dictionary<string, List<GameObject>>();
+
+        foreach (var pool in _pools)
         {
-            CreateNewObject();
+            if (pool.prefab.TryGetComponent<Projectile>(out var projectile))
+            {
+                pool.tag = projectile.tag;
+            }
+            Debug.Log("Pool tag" + pool.tag);
+            
+            List<GameObject> objectPool = new List<GameObject>();
+            for (int i = 0; i < pool.baseSize; i++)
+            {
+                GameObject obj = CreateNewObject(pool.prefab);
+                objectPool.Add(obj);
+            }
+            _poolDictionary.Add(pool.tag, objectPool);
+        }
+
+        foreach (var v in _poolDictionary)
+        {
+            Debug.Log(v.Key);
         }
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(string projectileTag)
     {
-        for (int i = 0; i < _pooledObjects.Count; i++)
+        if (!_poolDictionary.ContainsKey(projectileTag))
         {
-            if (!_pooledObjects[i].activeInHierarchy)
+            Debug.LogError("Not found tag");
+            return null;
+        }
+        Debug.Log("Contains!");
+
+        foreach (var obj in _poolDictionary[projectileTag])
+        {
+            if (!obj.activeInHierarchy)
             {
-                return _pooledObjects[i];
+                return obj;
             }
         }
 
-        Debug.Log("New object created");
-        return CreateNewObject();
+        Debug.Log("Not enough space");
+        return CreateNewObject(_poolDictionary[projectileTag][0]);
     }
 
-    private GameObject CreateNewObject()
+    private GameObject CreateNewObject(GameObject prefab)
     {
-        var go = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-        go.transform.SetParent(transform);
-        go.SetActive(false);
-        _pooledObjects.Add(go);
-        return go;
+        GameObject obj = Instantiate(prefab, transform.position, Quaternion.identity);
+        obj.transform.SetParent(transform);
+        obj.SetActive(false);
+        return obj;
     }
 }

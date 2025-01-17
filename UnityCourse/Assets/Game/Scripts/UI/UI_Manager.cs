@@ -11,7 +11,6 @@ public class UI_Manager : MonoBehaviour
 
     private void Start()
     {
-        AmmoTypeChanger.OnTriggerEntered += ProjectileTypeChange;
         StartCoroutine(DisableAfterDelay(controls, 2f));
     }
 

@@ -364,9 +364,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f863a5fa38c626e40ab8aa2a828bf6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 0}
-  _amountToPool: 4
-  _pooledObjects: []
+  _pools:
+  - tag: grenade
+    prefab: {fileID: 4040631206705043394, guid: 318ca365682388b43aa23035ea556879, type: 3}
+    size: 2
+  - tag: ordinary
+    prefab: {fileID: 4040631206705043394, guid: 848acf709c8887641bdbb24672de376b, type: 3}
+    size: 3
+  - tag: tennis
+    prefab: {fileID: 4040631206705043394, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
+    size: 4
 --- !u!4 &333237220
 Transform:
   m_ObjectHideFlags: 0

@@ -171,11 +171,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 8786586175013468459}
-  projectilePrefabs:
-  - {fileID: 4040631206705043394, guid: 848acf709c8887641bdbb24672de376b, type: 3}
-  - {fileID: 4040631206705043394, guid: 318ca365682388b43aa23035ea556879, type: 3}
-  - {fileID: 4040631206705043394, guid: 1ca992391ba8655458cf2532fa34c855, type: 3}
   _shootVFXprefab: {fileID: 5543528006329853927, guid: 760394968ddae5d418fb7467e4f7cdde, type: 3}
+  _baseProjectile: {fileID: 4811281541495435380, guid: 848acf709c8887641bdbb24672de376b, type: 3}
+  _currentProjectile: {fileID: 0}
 --- !u!1 &3159342608611279548
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,12 @@ public class Shooting : MonoBehaviour
     private ProjectilesType _projectileType = ProjectilesType.Ordinary;
 
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject[] projectilePrefabs;
     [SerializeField] private ParticleSystem _shootVFXprefab;
-
-    private int _currentProjectileIndex = 0;
+    
     private ParticleSystem _currentVFX;
+
+    [SerializeField] private Projectile _baseProjectile;
+    public string _projectileTag;
 
     private void Awake()
     {
@@ -24,25 +25,14 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        AmmoTypeChanger.OnTriggerEntered += OnAmmoTypeChange;
+        SetCurrentProjectile(_baseProjectile);
     }
 
-    private void OnAmmoTypeChange(ProjectilesType obj)
+    public void SetCurrentProjectile(Projectile go)
     {
-        switch (_projectileType = obj)
-        {
-            case ProjectilesType.Ordinary:
-                _currentProjectileIndex = 0;
-                break;
-            case ProjectilesType.Grenade:
-                _currentProjectileIndex = 1;
-                break;
-            case ProjectilesType.Tennis:
-                _currentProjectileIndex = 2;
-                break;
-        }
+        _projectileTag = go.tag;
     }
-
+    
     private void OnEnable()
     {
         _shoot = _playerControls.Player.Shoot;
@@ -56,14 +46,9 @@ public class Shooting : MonoBehaviour
         _shoot.Disable();
     }
 
-    private void OnDestroy()
-    {
-        AmmoTypeChanger.OnTriggerEntered -= OnAmmoTypeChange;
-    }
-
     private void Shoot(InputAction.CallbackContext context)
     {
-        var go = BulletManager.Instance.GetPooledObject();
+        var go = BulletManager.Instance.GetPooledObject(_projectileTag);
         go.transform.position = firePoint.position;
         go.transform.rotation = firePoint.rotation;
         // GameObject projectileInstance = Instantiate(projectilePrefabs[_currentProjectileIndex], firePoint.position,

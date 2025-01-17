@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec4b1aeeb83ed248ba5df342163175c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tag: grenade
   forceAmount: 60
   lifetime: 10
   lifetimeAfterHitObject: 0
